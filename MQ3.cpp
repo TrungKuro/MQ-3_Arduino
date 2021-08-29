@@ -56,9 +56,9 @@ float MQ3::readAlcoholConcentration(uint8_t unit)
 {
   switch (unit)
   {
-    case PERCENT_BAC: MQ3::convertRawtoBAC(MQ3::readRawValueOfAlcohol()); break;
-    case G_PER_ML:    MQ3::convertRawToGramPerMillilitre(MQ3::readRawValueOfAlcohol()); break;
-    case PPM:         MQ3::readRawValueOfAlcohol();
+    case PERCENT_BAC: return MQ3::convertRawtoBAC(MQ3::readRawValueOfAlcohol()); break;
+    case G_PER_ML:    return MQ3::convertRawToGramPerMillilitre(MQ3::readRawValueOfAlcohol()); break;
+    case PPM:         return MQ3::readRawValueOfAlcohol();
   }
 }
 
@@ -108,7 +108,7 @@ float MQ3::convertRawToGramPerMillilitre(float raw)
 double MQ3::calculateRS()
 {
   uint16_t sensorValue = analogRead(_pin);
-  double sensorVolt = sensorValue * (_isPower5v?5.0:3.3) / 1024.0;
+  double sensorVolt = sensorValue * (_isPower5v?5.0:3.3) / (_isPower5v?1024.0:675.84);
   double RS = (_isPower5v?5.0:3.3) * _res2 / sensorVolt - _res2;
 
   return RS;
