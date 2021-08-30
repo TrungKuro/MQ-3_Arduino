@@ -7,29 +7,29 @@ MQ3 mq(MQ_PIN, false);
 void setup()
 {
   Serial.begin(9600);
-  Serial.println(F("MQ3 test!\n"));
-  Serial.println(F("Please wait, the program is calculating RO..."));
+  Serial.print(F("MQ3 test!\n"));
+  Serial.print(F("Please wait, the program is calculating RO..."));
   mq.begin();
-  Serial.println(F(" Finish\n"));
+  Serial.print(F("ok\n"));
 }
 
 void loop()
 {
-  Serial.println(F("Alcohol: "));
+  Serial.print(F("Alcohol: "));
   mq.readAlcoholConcentration(PPM);
-  Serial.println(F(" ppm\n"));
+  Serial.print(F(" ppm\n"));
 
   delay(500);
 
-  Serial.println(F("Alcohol: "));
+  Serial.print(F("Alcohol: "));
   mq.readAlcoholConcentration(PERCENT_BAC);
-  Serial.println(F("% BAC\n"));
+  Serial.print(F("% BAC\n"));
 
   delay(500);
 
-  Serial.println(F("Alcohol: "));
+  Serial.print(F("Alcohol: "));
   mq.readAlcoholConcentration(G_PER_ML);
-  Serial.println(F(" g/mL\n"));
+  Serial.print(F(" g/mL\n"));
 
   delay(500);
 }
