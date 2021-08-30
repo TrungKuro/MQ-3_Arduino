@@ -56,8 +56,8 @@ float MQ3::readAlcoholConcentration(uint8_t unit)
 {
   switch (unit)
   {
-    case PERCENT_BAC: return MQ3::convertRawtoBAC(MQ3::readRawValueOfAlcohol()); break;
-    case G_PER_ML:    return MQ3::convertRawToGramPerMillilitre(MQ3::readRawValueOfAlcohol()); break;
+    case PERCENT_BAC: return MQ3::convertRawtoBAC(MQ3::readRawValueOfAlcohol());
+    case G_PER_ML:    return MQ3::convertRawToGramPerMillilitre(MQ3::readRawValueOfAlcohol());
     case PPM:         return MQ3::readRawValueOfAlcohol();
   }
 }
