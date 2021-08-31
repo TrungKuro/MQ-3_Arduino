@@ -28,23 +28,21 @@
 class MQ3
 {
 public:
-  MQ3(uint8_t pin, bool isPower5v=true, uint32_t res2=1000);
+  MQ3(uint8_t pin, bool isPower5v=true, float res2=2000);
 
   void begin();
   float readAlcoholConcentration(uint8_t unit=PPM);
   float readRawValueOfAlcohol(); // Unit (mg/L), based on ratio RS/RO
 
-  float convertRawtoBAC(float);
-  float convertRawToGramPerMillilitre(float);
-  // float convertRawToPPM(float);
+  float convertRawtoBAC(float raw);
+  float convertRawToGramPerMillilitre(float raw);
 
 private:
   uint8_t _pin;
-  uint32_t _res2;
-  double _resO;
+  float _res2, _resO;
   bool _isPower5v;
 
-  double calculateRS();
+  float calculateRS();
 };
 
 #endif
