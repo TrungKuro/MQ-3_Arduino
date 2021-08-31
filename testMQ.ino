@@ -2,34 +2,24 @@
 
 #define MQ_PIN A0
 
-MQ3 mq(MQ_PIN, false);
+MQ3 mq(MQ_PIN, false, 1000); // Here I use sensor have logic 3.3v (isPower5v=false) and R2=1kOhm (default 2kOhm)
 
 void setup()
 {
   Serial.begin(9600);
   Serial.print(F("MQ3 test!\n"));
-  Serial.print(F("Please wait, the program is calculating RO..."));
+  Serial.print(F("Please wait for the sensor probe to warm up (~10s)\nThe program is calculating the value of RO..."));
   mq.begin();
-  Serial.print(F("ok\n"));
+  Serial.print(F("ready\n"));
 }
 
 void loop()
 {
-  Serial.print(F("Alcohol: "));
-  mq.readAlcoholConcentration(PPM);
-  Serial.print(F(" ppm\n"));
+  float alcohol = mq.readAlcoholConcentration(); // Default unit (ppm)
+  Serial.print(F("Level Alcohol: "));
+  Serial.print(alcohol, 0); Serial.print(F(" ppm (mg/L) ; "));
+  Serial.print(mq.convertRawtoBAC(alcohol), 5); Serial.print(F("% BAC ; "));
+  Serial.print(mq.convertRawToGramPerMillilitre(alcohol), 5); Serial.print(F("g/mL\n"));
 
-  delay(500);
-
-  Serial.print(F("Alcohol: "));
-  mq.readAlcoholConcentration(PERCENT_BAC);
-  Serial.print(F("% BAC\n"));
-
-  delay(500);
-
-  Serial.print(F("Alcohol: "));
-  mq.readAlcoholConcentration(G_PER_ML);
-  Serial.print(F(" g/mL\n"));
-
-  delay(500);
+  delay(1000);
 }
