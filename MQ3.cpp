@@ -22,9 +22,9 @@
  *  @param  isPower5v
  *          The sensor use logic 3.3v or 5v (default 5v)
  *  @param  res2
- *          The value Resistance R2 of sensor (default 1KOhm)
+ *          The value Resistance R2 of sensor (default 2KOhm)
  */
-MQ3::MQ3(uint8_t pin, bool isPower5v, uint32_t res2)
+MQ3::MQ3(uint8_t pin, bool isPower5v, float res2)
 {
   _pin = pin;
   _isPower5v = isPower5v;
@@ -34,24 +34,31 @@ MQ3::MQ3(uint8_t pin, bool isPower5v, uint32_t res2)
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *  @brief  It will delay ~15s to heat probe sensor to ready
+ *  @brief  It will delay ~10s to heat probe sensor to ready
  *          Then calculate value RO based on RS
  */
 void MQ3::begin()
 {
-  delay(10000);
+  delay(5000);
   _resO=0;
 
-  uint8_t count=5;
+  uint8_t count=10;
   uint8_t i=count;
   while (i--)
   {
-    _resO += (MQ3::calculateRS()/AIR); // RS/RO = 60 => RS/60 = RO
-    delay(1000);
+    _resO += (MQ3::calculateRS()/AIR); // Calculate the average of RO (RO = RS/60)
+    delay(500);
   }
-  _resO /= count;
+  _resO /= (float)count;
 }
 
+/*!
+ *  @brief  Read Alcohol Concentration
+ *  @param  unit
+ *          The unit BAC (%)
+ *          The unit (g/mL)
+ *          The unit default (ppm) is also unit (mg/L)
+ */
 float MQ3::readAlcoholConcentration(uint8_t unit)
 {
   switch (unit)
@@ -64,7 +71,6 @@ float MQ3::readAlcoholConcentration(uint8_t unit)
 
 /*!
  *  @brief  Calculate the concentration of alcohol is present in Air, unit (mg/L)
- *          It using the function pow() for Exponent with the value return "double"
  */
 float MQ3::readRawValueOfAlcohol()
 {
@@ -91,25 +97,16 @@ float MQ3::convertRawToGramPerMillilitre(float raw)
   return raw * 0.000001;
 }
 
-/*
- *  The unit (mg/L) is also unit (ppm)
- *  1 mg/L <=> 1 (ppm)
- */
-// float MQ3::convertRawToPPM(float raw)
-// {
-//   return raw;
-// }
-
 /////////////////////////////////////////////////////////////////////
 
 /*!
  *  @brief  Calculate value RS based on R2 and level Logic with the value Analog voltage of sensor
  */
-double MQ3::calculateRS()
+float MQ3::calculateRS()
 {
-  uint16_t sensorValue = analogRead(_pin);
-  double sensorVolt = sensorValue * (_isPower5v?5.0:3.3) / (_isPower5v?1024.0:675.84);
-  double RS = (_isPower5v?5.0:3.3) * _res2 / sensorVolt - _res2;
+  float sensorValue = analogRead(_pin);
+  float sensorVolt = sensorValue * (_isPower5v?5.0:3.3) / (_isPower5v?1024.0:675.84);
+  float RS = (_isPower5v?5.0:3.3) * _res2 / sensorVolt - _res2;
 
   return RS;
 }
