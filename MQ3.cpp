@@ -34,12 +34,12 @@ MQ3::MQ3(uint8_t pin, bool isPower5v, float res2)
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *  @brief  It will delay ~10s to heat probe sensor to ready
+ *  @brief  It will delay ~15s to heat probe sensor to ready
  *          Then calculate value RO based on RS
  */
 void MQ3::begin()
 {
-  delay(5000);
+  delay(10000);
   _resO=0;
 
   uint8_t count=10;
@@ -55,22 +55,22 @@ void MQ3::begin()
 /*!
  *  @brief  Read Alcohol Concentration
  *  @param  unit
- *          The unit BAC (%)
- *          The unit (g/mL)
- *          The unit default (ppm) is also unit (mg/L)
+ *          The unit (%) of (BAC)
+ *          The unit (g/mL) of (BAC)
+ *          The unit default (ppm) of (BrAC)
  */
 float MQ3::readAlcoholConcentration(uint8_t unit)
 {
   switch (unit)
   {
-    case PERCENT_BAC: return MQ3::convertRawtoBAC(MQ3::readRawValueOfAlcohol());
+    case PERCENT_BAC: return MQ3::convertRawToBAC(MQ3::readRawValueOfAlcohol());
     case G_PER_ML:    return MQ3::convertRawToGramPerMillilitre(MQ3::readRawValueOfAlcohol());
-    case PPM:         return MQ3::readRawValueOfAlcohol();
+    case PPM:         return MQ3::convertRawToPPM(MQ3::readRawValueOfAlcohol());
   }
 }
 
 /*!
- *  @brief  Calculate the concentration of alcohol is present in Air, unit (mg/L)
+ *  @brief  Calculate the concentration of alcohol is present in Air, unit (mg/L) of (BrAC)
  */
 float MQ3::readRawValueOfAlcohol()
 {
@@ -80,21 +80,30 @@ float MQ3::readRawValueOfAlcohol()
 /////////////////////////////////////////////////////////////////////
 
 /*!
- *  @brief  Convert the value unit (mg/L) to unit BAC (%)
- *          1 mg/L <=> 0,0001% BAC
+ *  @brief  Convert the value unit (mg/L) of (BrAC) to unit (%) of (BAC)
+ *          1 mg/L <=> 0,2% BAC
  */
-float MQ3::convertRawtoBAC(float raw)
+float MQ3::convertRawToBAC(float raw)
 {
-  return raw * 0.0001;
+  return raw * 0.2;
 }
 
 /*!
- *  @brief  Convert the value unit (mg/L) to unit (g/mL)
- *          1 mg/L <=> 0,000001 (g/mL)
+ *  @brief  Convert the value unit (mg/L) of (BrAC) to unit (g/mL) of (BAC)
+ *          1 mg/L <=> 0,002 g/mL
  */
 float MQ3::convertRawToGramPerMillilitre(float raw)
 {
-  return raw * 0.000001;
+  return raw * 0.002;
+}
+
+/*!
+ *  @brief  Convert the value unit (mg/L) of (BrAC) to unit (ppm) of (BrAC)
+ *          1 mg/L <=> 500 ppm
+ */
+float convertRawToPPM(float raw)
+{
+  return raw * 500.0;
 }
 
 /////////////////////////////////////////////////////////////////////
