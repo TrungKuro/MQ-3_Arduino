@@ -12,33 +12,38 @@ MQ3(uint8_t pin, bool isPower5v=true, float res2=2000);
 
 ## Methods
 
-### Need calculate RO before used
+### Need calculate RO before used, wait ~15s
 ```
 void begin();
 ```
 
-### Get value Raw, unit (mg/L)
+### Get value Raw, unit (mg/L) of (BrAC)
 ```
 float readRawValueOfAlcohol();
 ```
 
-### Get value, with other unit like: ppm, BAC, (g/mL), ...
+### Get value, with other unit like: (ppm) of (BrAC), (%) of BAC, (g/mL) of (BAC), ...
 ```
 float readAlcoholConcentration(uint8_t unit=PPM);
 ```
 + unit: convert from (mg/L) to the selected unit
-  - PERCENT_BAC (% BAC)
-  - G_PER_ML    (g/mL)
-  - PPM         (ppm)
+  - PERCENT_BAC (%) of (BAC)
+  - G_PER_ML    (g/mL) of (BAC)
+  - PPM         (ppm) of (BrAC)
 
-### Convert from (mg/L) to BAC
+### Convert from (mg/L) to (%) of (BAC)
 ```
 float convertRawtoBAC(float raw);
 ```
 + raw: the value Raw, unit (mg/L)
 
-### Convert from (mg/L) to (g/mL)
+### Convert from (mg/L) to (g/mL) of (BAC)
 ```
 float convertRawToGramPerMillilitre(float raw);
+```
++ raw: the value Raw, unit (mg/L)
+### Convert from (mg/L) to (ppm) of (BrAC)
+```
+float convertRawToPPM(float raw);
 ```
 + raw: the value Raw, unit (mg/L)
