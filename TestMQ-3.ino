@@ -8,18 +8,19 @@ void setup()
 {
   Serial.begin(9600);
   Serial.print(F("MQ3 test!\n"));
-  Serial.print(F("Please wait for the sensor probe to warm up (~10s)\nThe program is calculating the value of RO..."));
+  Serial.print(F("Please wait for the sensor probe to warm up (~15s)\nThe program is calculating the value of RO..."));
   mq.begin();
   Serial.print(F("ready\n"));
 }
 
 void loop()
 {
-  float alcohol = mq.readAlcoholConcentration(); // Default unit (ppm)
+  float alcohol = mq.readRawValueOfAlcohol(); // Unit (mg/L) of (BrAC)
   Serial.print(F("Level Alcohol: "));
-  Serial.print(alcohol, 2); Serial.print(F(" ppm (mg/L) ; "));
-  Serial.print(mq.convertRawtoBAC(alcohol), 6); Serial.print(F("% BAC ; "));
-  Serial.print(mq.convertRawToGramPerMillilitre(alcohol), 8); Serial.print(F("g/mL\n"));
+  Serial.print(alcohol, 2); Serial.print(F(" mg/L ; "));
+  Serial.print(mq.convertRawToPPM(alcohol), 0); Serial.print(F("ppm ; "));
+  Serial.print(mq.convertRawToBAC(alcohol), 2); Serial.print(F("% BAC ; "));
+  Serial.print(mq.convertRawToGramPerMillilitre(alcohol), 4); Serial.print(F(" g/mL\n"));
 
   delay(1000);
 }
