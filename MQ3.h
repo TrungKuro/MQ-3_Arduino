@@ -21,9 +21,10 @@
 #define AIR 60.0 // The RS/R0 ratio is a constant 60 in "clean air"
 
 /* Define types Unit of MQ-3 */
-#define PERCENT_BAC 1 // Blood alcohol level (BAC - %)
-#define G_PER_ML 2    // Gram Per Millilitre (g/mL)
-#define PPM 3         // Parts Per Million (ppm)
+#define PERCENT_BAC 1 // Blood alcohol level (%) of BAC
+#define G_PER_ML 2    // Gram Per Millilitre (g/mL) of BAC
+#define PPM 3         // Parts Per Million (ppm) of BrAC
+                      // Milligrams Per Liter (mg/L) of BrAC 
 
 class MQ3
 {
@@ -34,8 +35,9 @@ public:
   float readAlcoholConcentration(uint8_t unit=PPM);
   float readRawValueOfAlcohol(); // Unit (mg/L), based on ratio RS/RO
 
-  float convertRawtoBAC(float raw);
+  float convertRawToBAC(float raw);
   float convertRawToGramPerMillilitre(float raw);
+  float convertRawToPPM(float raw);
 
 private:
   uint8_t _pin;
