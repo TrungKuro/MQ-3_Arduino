@@ -17,9 +17,9 @@ void loop()
 {
   float alcohol = mq.readAlcoholConcentration(); // Default unit (ppm)
   Serial.print(F("Level Alcohol: "));
-  Serial.print(alcohol, 0); Serial.print(F(" ppm (mg/L) ; "));
-  Serial.print(mq.convertRawtoBAC(alcohol), 5); Serial.print(F("% BAC ; "));
-  Serial.print(mq.convertRawToGramPerMillilitre(alcohol), 5); Serial.print(F("g/mL\n"));
+  Serial.print(alcohol, 2); Serial.print(F(" ppm (mg/L) ; "));
+  Serial.print(mq.convertRawtoBAC(alcohol), 6); Serial.print(F("% BAC ; "));
+  Serial.print(mq.convertRawToGramPerMillilitre(alcohol), 8); Serial.print(F("g/mL\n"));
 
   delay(1000);
 }
