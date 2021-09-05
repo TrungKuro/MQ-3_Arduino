@@ -8,7 +8,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.print(F("MQ3 test!\n"));
-  Serial.print(F("Please wait for the sensor probe to warm up (~15s)\nThe program is calculating the value of RO..."));
+  Serial.print(F("Please wait for the sensor probe to warm up (~20s)\nThe program is calculating the value of RO..."));
   mq.begin();
   Serial.print(F("ready\n"));
 }
