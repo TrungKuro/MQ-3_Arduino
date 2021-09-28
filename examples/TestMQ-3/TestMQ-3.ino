@@ -1,4 +1,4 @@
-#include "MQ3.h"
+#include <MQ3.h>
 
 #define MQ_PIN A0
 
