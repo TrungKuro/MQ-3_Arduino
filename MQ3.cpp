@@ -101,7 +101,7 @@ float MQ3::convertRawToGramPerMillilitre(float raw)
  *  @brief  Convert the value unit (mg/L) of (BrAC) to unit (ppm) of (BrAC)
  *          1 mg/L <=> 500 ppm
  */
-float convertRawToPPM(float raw)
+float MQ3::convertRawToPPM(float raw)
 {
   return raw * 500.0;
 }
