@@ -1,6 +1,6 @@
 # MQ3 Alcohol Sensor Library
 Library sensor MQ-3 for **boards Arduino**
-<p align="center"><img src="/readme/mq-3.jpg"/></p>
+<p align="center"><img src="/assets/mq-3.jpg"/></p>
 
 ## Constructors
 ```
