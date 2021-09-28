@@ -1,0 +1,22 @@
+###########################################
+# Syntax Coloring Map For MQ3
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+MQ3	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+begin	KEYWORD2
+readAlcoholConcentration	KEYWORD2
+readRawValueOfAlcohol	KEYWORD2
+convertRawToBAC	KEYWORD2
+convertRawToGramPerMillilitre	KEYWORD2
+convertRawToPPM	KEYWORD2
+###########################################
+# Constants (LITERAL1)
+###########################################
