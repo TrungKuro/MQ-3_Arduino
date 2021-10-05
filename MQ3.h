@@ -1,5 +1,5 @@
 /*!
- *  @file MQ3.cpp
+ *  @file MQ3.h
  *
  *  Library Sensor MQ3 use with boards Arduino
  *  Function tests levels of alcohol in the air
